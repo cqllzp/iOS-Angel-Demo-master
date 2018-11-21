@@ -251,6 +251,11 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Texas Instruments";
+				TargetAttributes = {
+					7F38C302169AEFF000E239F9 = {
+						DevelopmentTeam = HSN6A47NXB;
+					};
+				};
 			};
 			buildConfigurationList = 7F38C2FD169AEFF000E239F9 /* Build configuration list for PBXProject "TIOADExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -396,9 +401,11 @@
 		7F38C32B169AEFF100E239F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = HSN6A47NXB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TIOADExample/TIOADExample-Prefix.pch";
 				INFOPLIST_FILE = "TIOADExample/TIOADExample-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = ti.TIOADExample.cq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -407,9 +414,11 @@
 		7F38C32C169AEFF100E239F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = HSN6A47NXB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TIOADExample/TIOADExample-Prefix.pch";
 				INFOPLIST_FILE = "TIOADExample/TIOADExample-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = ti.TIOADExample.cq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

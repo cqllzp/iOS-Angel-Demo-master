@@ -63,7 +63,8 @@
     [self.button1 setTitle:[NSString stringWithFormat:@"%@ selected",self.dSVC.p.name] forState:UIControlStateNormal];
     self.dSVC.p.delegate = self;
     self.manager.delegate = self;
-    if (!self.dSVC.p.isConnected) [self.manager connectPeripheral:self.dSVC.p options:nil];
+    if (!self.dSVC.p.state) [self.manager connectPeripheral:self.dSVC.p options:nil];
+    //if (!self.dSVC.p.isConnected) [self.manager connectPeripheral:self.dSVC.p options:nil];
 }
 
 #pragma mark - CBCentralManagerDelegate Callbacks

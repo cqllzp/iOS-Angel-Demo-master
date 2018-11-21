@@ -57,7 +57,7 @@
 }
 
 -(IBAction)selectImagePressed:(id)sender {
-    if (![self.d.p isConnected]) {
+    if (![self.d.p state]) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Device disconnected !" message:@"Unable to start programming when device is not connected ..." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Reconnect",nil];
         [alertView show];
         alertView.tag = 1;
