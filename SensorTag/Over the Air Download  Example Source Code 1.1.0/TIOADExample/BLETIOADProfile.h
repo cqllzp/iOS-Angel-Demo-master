@@ -26,6 +26,9 @@
 @property int nBytes;
 @property int iBlocks;
 @property int iBytes;
+//CQ
+@property int iBlocks_FFC2;
+
 @property BOOL canceled;
 @property BOOL inProgramming;
 @property BOOL start;

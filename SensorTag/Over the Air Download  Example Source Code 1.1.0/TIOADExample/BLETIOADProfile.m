@@ -41,7 +41,9 @@
     NSLog(@"Configurating OAD Profile");
     CBUUID *sUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Service UUID"]];
     CBUUID *cUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Image Notify UUID"]];
+    CBUUID *cUUID_FFC2 = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Image Block Request UUID"]]; //CQ
     [BLEUtility setNotificationForCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID enable:YES];
+    [BLEUtility setNotificationForCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID_FFC2 enable:YES]; //CQ
     unsigned char data = 0x00;
     [BLEUtility writeCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID data:[NSData dataWithBytes:&data length:1]];
     self.imageDetectTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(imageDetectTimerTick:) userInfo:nil repeats:NO];
@@ -53,7 +55,9 @@
     NSLog(@"Deconfiguring OAD Profile");
     CBUUID *sUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Service UUID"]];
     CBUUID *cUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Image Notify UUID"]];
+    CBUUID *cUUID_FFC2 = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Image Block Request UUID"]]; //CQ
     [BLEUtility setNotificationForCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID enable:YES];
+    [BLEUtility setNotificationForCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID_FFC2 enable:YES]; //CQ
 }
 
 -(IBAction)selectImagePressed:(id)sender {
@@ -198,11 +202,16 @@
     uint8_t requestData[2 + OAD_BLOCK_SIZE];
     
     // This block is run 4 times, this is needed to get CoreBluetooth to send consequetive packets in the same connection interval.
-    for (int ii = 0; ii < 4; ii++) {
-        
+    //for (int ii = 0; ii < 4; ii++) {
+        self.iBlocks++;
+        if(self.iBlocks_FFC2 != self.iBlocks){ //CQ
+            self.iBlocks = self.iBlocks_FFC2;
+        }else{
+            self.iBytes += OAD_BLOCK_SIZE;
+        }
         requestData[0] = LO_UINT16(self.iBlocks);
         requestData[1] = HI_UINT16(self.iBlocks);
-        
+        NSLog(@"requestBlocks = %04hx",(unsigned short)self.iBlocks);
         memcpy(&requestData[2] , &imageFileData[self.iBytes], OAD_BLOCK_SIZE);
         
         CBUUID *sUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Service UUID"]];
@@ -210,10 +219,10 @@
         
         [BLEUtility writeNoResponseCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID data:[NSData dataWithBytes:requestData length:2 + OAD_BLOCK_SIZE]];
         
-        self.iBlocks++;
-        self.iBytes += OAD_BLOCK_SIZE;
+
         
-        if(self.iBlocks == self.nBlocks) {
+        
+        if((self.iBlocks+1) == self.nBlocks) {
             if ([BLEUtility runningiOSSeven]) {
                 [self.navCtrl popToRootViewControllerAnimated:YES];
             }
@@ -223,9 +232,9 @@
             return;
         }
         else {
-            if (ii == 3)[NSTimer scheduledTimerWithTimeInterval:0.09 target:self selector:@selector(programmingTimerTick:) userInfo:nil repeats:NO];
+            /*if (ii == 3)*/[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(programmingTimerTick:) userInfo:nil repeats:NO];
         }
-    }
+    //}
     self.progressDialog.progressBar.progress = (float)((float)self.iBlocks / (float)self.nBlocks);
     self.progressDialog.label1.text = [NSString stringWithFormat:@"%0.1f%%",(float)((float)self.iBlocks / (float)self.nBlocks) * 100.0f];
     float secondsPerBlock = 0.09 / 4;
@@ -265,10 +274,17 @@
             [characteristic.value getBytes:&data];
             self.imgVersion = ((uint16_t)data[1] << 8 & 0xff00) | ((uint16_t)data[0] & 0xff);
             NSLog(@"self.imgVersion : %04hx",self.imgVersion);
+            self.iBlocks_FFC2 = 0x0000;
          }
         NSLog(@"OAD Image notify : %@",characteristic.value);
         
     }
+    //CQ
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Image Block Request UUID"]]]) {
+        unsigned char data[characteristic.value.length];
+        [characteristic.value getBytes:&data];
+        NSLog(@"OAD Image Block : %@",characteristic.value);
+        self.iBlocks_FFC2 = ((uint16_t)data[1] << 8 & 0xff00) | ((uint16_t)data[0] & 0xff);}
 }
 -(void) didWriteValueForProfile:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didWriteValueForProfile : %@",characteristic);
@@ -321,7 +337,7 @@
 
 -(BOOL)validateImage:(NSString *)filename {
     self.imageFile = [NSData dataWithContentsOfFile:filename];
-    NSLog(@"Loaded firmware \"%@\"of size : %d",filename,self.imageFile.length);
+    NSLog(@"Loaded firmware \"%@\"of size : %d",filename,(int)self.imageFile.length);
     if ([self isCorrectImage]) [self uploadImage:filename];
     else {
         UIAlertView *wrongImage = [[UIAlertView alloc]initWithTitle:@"Wrong image type !" message:[NSString stringWithFormat:@"Image that was selected was of type : %c, which is the same as on the peripheral, please select another image",(self.imgVersion & 0x01) ? 'B' : 'A'] delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
@@ -348,6 +364,16 @@
     unsigned char data = 0x01;
     [BLEUtility writeCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID data:[NSData dataWithBytes:&data length:1]];
 }
+/*
+-(void) blockDetectTimerTick:(NSTimer *)timer {
+    //IF we have come here, the image userID is B.
+    NSLog(@"blockDetectTimerTick:");
+    CBUUID *sUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Service UUID"]];
+    CBUUID *cUUID = [CBUUID UUIDWithString:[self.d.setupData valueForKey:@"OAD Image Notify UUID"]];
+    unsigned char data[2] = 0x01;
+    [BLEUtility writeCharacteristic:self.d.p sCBUUID:sUUID cCBUUID:cUUID data:[NSData dataWithBytes:&data length:2]];
+}
+*/
 
 -(void) completionDialog {
     UIAlertView *complete;

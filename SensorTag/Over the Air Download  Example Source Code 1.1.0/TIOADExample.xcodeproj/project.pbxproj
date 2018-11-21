@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D613F3E21A5626800F49657 /* SensorTagImgB.bin in Resources */ = {isa = PBXBuildFile; fileRef = 0D613F3C21A5626800F49657 /* SensorTagImgB.bin */; };
+		0D613F3F21A5626800F49657 /* SensorTagImgA.bin in Resources */ = {isa = PBXBuildFile; fileRef = 0D613F3D21A5626800F49657 /* SensorTagImgA.bin */; };
 		7F38C308169AEFF000E239F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F38C307169AEFF000E239F9 /* UIKit.framework */; };
 		7F38C30A169AEFF000E239F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F38C309169AEFF000E239F9 /* Foundation.framework */; };
 		7F38C30C169AEFF000E239F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F38C30B169AEFF000E239F9 /* CoreGraphics.framework */; };
@@ -21,8 +23,6 @@
 		7F38C327169AEFF000E239F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F38C326169AEFF000E239F9 /* ViewController.m */; };
 		7F38C32E169AF4A100E239F9 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F38C32D169AF4A100E239F9 /* CoreBluetooth.framework */; };
 		7F38C331169AF52800E239F9 /* deviceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F38C330169AF52800E239F9 /* deviceSelectorViewController.m */; };
-		7F38C39A169B0F4500E239F9 /* SensorTagImgA.bin in Resources */ = {isa = PBXBuildFile; fileRef = 7F38C398169B0F4400E239F9 /* SensorTagImgA.bin */; };
-		7F38C39B169B0F4500E239F9 /* SensorTagImgB.bin in Resources */ = {isa = PBXBuildFile; fileRef = 7F38C399169B0F4500E239F9 /* SensorTagImgB.bin */; };
 		7F6A7804169B116A00DF5A5C /* BLETIOADProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A7802169B116A00DF5A5C /* BLETIOADProfile.m */; };
 		7F6A7805169B116A00DF5A5C /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A7803169B116A00DF5A5C /* BLEDevice.m */; };
 		7F6A780B169B11F800DF5A5C /* BLETIOADProgressDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A7808169B11F800DF5A5C /* BLETIOADProgressDialog.m */; };
@@ -38,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D613F3C21A5626800F49657 /* SensorTagImgB.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = SensorTagImgB.bin; sourceTree = "<group>"; };
+		0D613F3D21A5626800F49657 /* SensorTagImgA.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = SensorTagImgA.bin; sourceTree = "<group>"; };
 		7F38C303169AEFF000E239F9 /* TIOADExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIOADExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F38C307169AEFF000E239F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F38C309169AEFF000E239F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,8 +61,6 @@
 		7F38C32F169AF52800E239F9 /* deviceSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deviceSelectorViewController.h; sourceTree = "<group>"; };
 		7F38C330169AF52800E239F9 /* deviceSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deviceSelectorViewController.m; sourceTree = "<group>"; };
 		7F38C395169B0CA900E239F9 /* oad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oad.h; sourceTree = "<group>"; };
-		7F38C398169B0F4400E239F9 /* SensorTagImgA.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = SensorTagImgA.bin; sourceTree = "<group>"; };
-		7F38C399169B0F4500E239F9 /* SensorTagImgB.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = SensorTagImgB.bin; sourceTree = "<group>"; };
 		7F6A7800169B116A00DF5A5C /* BLETIOADProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLETIOADProfile.h; sourceTree = "<group>"; };
 		7F6A7801169B116A00DF5A5C /* BLEDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDevice.h; sourceTree = "<group>"; };
 		7F6A7802169B116A00DF5A5C /* BLETIOADProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLETIOADProfile.m; sourceTree = "<group>"; };
@@ -159,8 +159,8 @@
 		7F6A781B169B2F2700DF5A5C /* Integrated Firmware Files */ = {
 			isa = PBXGroup;
 			children = (
-				7F38C398169B0F4400E239F9 /* SensorTagImgA.bin */,
-				7F38C399169B0F4500E239F9 /* SensorTagImgB.bin */,
+				0D613F3D21A5626800F49657 /* SensorTagImgA.bin */,
+				0D613F3C21A5626800F49657 /* SensorTagImgB.bin */,
 			);
 			name = "Integrated Firmware Files";
 			sourceTree = "<group>";
@@ -282,11 +282,11 @@
 				7F38C312169AEFF000E239F9 /* InfoPlist.strings in Resources */,
 				7F38C31A169AEFF000E239F9 /* Default.png in Resources */,
 				7F38C31C169AEFF000E239F9 /* Default@2x.png in Resources */,
+				0D613F3E21A5626800F49657 /* SensorTagImgB.bin in Resources */,
 				7F38C31E169AEFF000E239F9 /* Default-568h@2x.png in Resources */,
 				7F38C321169AEFF000E239F9 /* MainStoryboard_iPhone.storyboard in Resources */,
 				7F38C324169AEFF000E239F9 /* MainStoryboard_iPad.storyboard in Resources */,
-				7F38C39A169B0F4500E239F9 /* SensorTagImgA.bin in Resources */,
-				7F38C39B169B0F4500E239F9 /* SensorTagImgB.bin in Resources */,
+				0D613F3F21A5626800F49657 /* SensorTagImgA.bin in Resources */,
 				7F91234A16D3A19000549155 /* icon@2x_144.png in Resources */,
 				7F91234B16D3A19000549155 /* icon_72.png in Resources */,
 				7F91235316D3A1F700549155 /* icon_57@2x_114.png in Resources */,
